@@ -124,6 +124,10 @@ func keyCapture(members[] classes.GithubUser) []classes.GithubKey {
 			}
 		}
 		for _, k := range userKeys {
+			if strings.Contains(k.Key, publicKey) {
+				config.SendAlert(member.Html_url, publicKey)
+			}
+
 			keys = append(keys, k)
 		}
 	}
