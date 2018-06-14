@@ -18,15 +18,15 @@ func main() {
 	var user, pubKey string
 
 	if len(os.Args) < 2 || len(os.Args) < 3 {
-		//log.Fatalln("error: arguments missing or not provided")
+		//log.Printf("ERROR: arguments missing or not provided")
 		os.Exit(22)
 	} else if len(os.Args) > 4 {
-		//log.Fatalln("error: too many arguments provided")
+		//log.Printf("ERROR: too many arguments provided")
 		os.Exit(7)
 	} else {
 		user = os.Args[1]
 		if user != configs.System_conf.Admin_user && user != configs.System_conf.Default_user {
-			//log.Fatalf("error: invalid user %s", user)
+			//log.Printf("ERROR: invalid user %s", user)
 			os.Exit(22)
 		}
 

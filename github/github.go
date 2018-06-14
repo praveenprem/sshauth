@@ -52,12 +52,14 @@ func getOrganizationMembers(role string, conf classes.Github) []classes.GithubUs
 	var url = url_api+url_org+"/"+conf.Org+"/"+url_members+"?"+url_role+role+"&"+url_token+conf.Access_token
 	response, err := http.Get(url)
 	if err != nil {
+		//log.Printf("ERROR: %s\n", err)
 		os.Exit(70)
 	} else {
 		defer response.Body.Close()
 
 		err := json.NewDecoder(response.Body).Decode(&members)
 		if err != nil {
+			//log.Printf("ERROR: %s\n", err)
 			os.Exit(5)
 		}
 	}
@@ -70,12 +72,14 @@ func getTeamMembers(role string, conf classes.Github) []classes.GithubUser {
 	var url = url_api+url_teams+"/"+strconv.Itoa(teamId)+"/"+url_members+"?"+url_role+role+"&"+url_token+conf.Access_token
 	response, err := http.Get(url)
 	if err != nil {
+		//log.Printf("ERROR: %s\n", err)
 		os.Exit(70)
 	} else {
 		defer response.Body.Close()
 
 		err := json.NewDecoder(response.Body).Decode(&members)
 		if err != nil {
+			//log.Printf("ERROR: %s\n", err)
 			os.Exit(5)
 		}
 	}
@@ -88,12 +92,14 @@ func listTeams(org string, token string, teamName string) int {
 	var url = url_api+url_org+"/"+org+"/"+url_teams+"?"+url_token+token
 	response, err := http.Get(url)
 	if err != nil {
+		//log.Printf("ERROR: %s\n", err)
 		os.Exit(70)
 	} else {
 		defer response.Body.Close()
 
 		err := json.NewDecoder(response.Body).Decode(&teams)
 		if err != nil {
+			//log.Printf("ERROR: %s\n", err)
 			os.Exit(5)
 		}
 
@@ -103,6 +109,7 @@ func listTeams(org string, token string, teamName string) int {
 			}
 		}
 	}
+	//log.Printf("ERROR: %s\n", err)
 	os.Exit(61)
 	return 0
 }
@@ -114,12 +121,14 @@ func keyCapture(members[] classes.GithubUser) []classes.GithubKey {
 		var url = member.Url+"/"+url_keys
 		response, err := http.Get(url)
 		if err != nil {
+			//log.Printf("ERROR: %s\n", err)
 			os.Exit(70)
 		} else {
 			defer response.Body.Close()
 
 			err := json.NewDecoder(response.Body).Decode(&userKeys)
 			if err != nil {
+				//log.Printf("ERROR: %s\n", err)
 				os.Exit(5)
 			}
 		}

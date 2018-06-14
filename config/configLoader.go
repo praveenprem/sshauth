@@ -23,7 +23,7 @@ func loadFile() string {
 	file, err := os.Open(configFile)
 
 	if err != nil {
-		fmt.Println(file, err)
+		//log.Fatalf("ERROR: %s\n", err)
 		os.Exit(2)
 	}
 
@@ -40,7 +40,7 @@ func confParse() Conf {
 
 	err := yaml.Unmarshal([]byte(configFileContent), &config)
 	if err != nil {
-		//log.Fatalln("error: ", err)
+		//log.Fatalf("ERROR: %s\n", err)
 		os.Exit(2)
 	}
 
@@ -86,6 +86,6 @@ func Load() Conf {
 }
 
 func exit(source string) {
-	//log.Println("error: invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
+	//log.Fatalln("ERROR: Invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
 	os.Exit(61)
 }
