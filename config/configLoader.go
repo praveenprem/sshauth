@@ -2,7 +2,6 @@ package config
 
 import (
 	"os"
-	"fmt"
 	"bytes"
 	"gopkg.in/yaml.v2"
 	"github.com/praveenprem/sshauth/classes"
@@ -51,6 +50,7 @@ func Load() Conf {
 	configuration = confParse()
 
 	if configuration.System_conf.Service == "" ||
+		configuration.System_conf.Name == "" ||
 		configuration.System_conf.Admin_user == "" ||
 		configuration.System_conf.Default_user == "" {
 			exit("System")
@@ -73,12 +73,12 @@ func Load() Conf {
 	}
 
 	if configuration.System_conf.Service == "database" {
-		if configuration.Mysql.Database == "" ||
-			configuration.Mysql.Host == "" ||
-			configuration.Mysql.Table == "" ||
-			configuration.Mysql.User == "" ||
-			configuration.Mysql.Password == ""  {
-			exit("MySQL")
+		if configuration.Sql.Database == "" ||
+			configuration.Sql.Host == "" ||
+			configuration.Sql.Table == "" ||
+			configuration.Sql.User == "" ||
+			configuration.Sql.Password == ""  {
+			exit("SQLConf")
 		}
 	}
 

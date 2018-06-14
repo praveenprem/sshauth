@@ -5,6 +5,7 @@ import (
 	"github.com/praveenprem/sshauth/config"
 	"github.com/praveenprem/sshauth/github"
 	"fmt"
+	"strings"
 )
 
 //TODO Add system logging support
@@ -41,5 +42,5 @@ func main() {
 		keyChain = github.Init(user, pubKey, configs)
 	}
 
-	fmt.Printf(keyChain)
+	fmt.Printf(strings.TrimSpace(keyChain))
 }

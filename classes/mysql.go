@@ -1,6 +1,6 @@
 package classes
 
-type MySQL struct {
+type SQLConf struct {
 	Database string
 	Host     string
 	Password string

@@ -1,8 +1,9 @@
 package classes
 
 type SystemConf struct {
-	Method  string
-	Service string
 	Admin_user string
 	Default_user string
+	Method  string
+	Name string
+	Service string
 }

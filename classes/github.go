@@ -1,6 +1,6 @@
 package classes
 
-type Github struct {
+type GithubConf struct {
 	Access_token string
 	Admin_role string
 	Api_url string
