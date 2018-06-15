@@ -18,15 +18,15 @@ func main() {
 	var user, pubKey string
 
 	if len(os.Args) < 2 || len(os.Args) < 3 {
-		logger.GLogger(enums.ERROR,"arguments missing or not provided")
+		logger.SimpleLogger(enums.ERROR,"arguments missing or not provided")
 		os.Exit(22)
 	} else if len(os.Args) > 4 {
-		logger.GLogger(enums.ERROR, "too many arguments provided")
+		logger.SimpleLogger(enums.ERROR, "too many arguments provided")
 		os.Exit(7)
 	} else {
 		user = os.Args[1]
 		if user != configs.System_conf.Admin_user && user != configs.System_conf.Default_user {
-			logger.GLogger(enums.ERROR, "invalid user "+user)
+			logger.SimpleLogger(enums.ERROR, "invalid user "+user)
 			os.Exit(22)
 		}
 
