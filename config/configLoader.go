@@ -5,6 +5,8 @@ import (
 	"bytes"
 	"gopkg.in/yaml.v2"
 	"github.com/praveenprem/sshauth/classes"
+	"github.com/praveenprem/sshauth/enums"
+	"github.com/praveenprem/sshauth/logger"
 )
 
 type Conf = classes.Conf
@@ -22,7 +24,7 @@ func loadFile() string {
 	file, err := os.Open(configFile)
 
 	if err != nil {
-		//log.Fatalf("ERROR: %s\n", err)
+		logger.GLogger(enums.ERROR, err.Error())
 		os.Exit(2)
 	}
 
@@ -39,7 +41,7 @@ func confParse() Conf {
 
 	err := yaml.Unmarshal([]byte(configFileContent), &config)
 	if err != nil {
-		//log.Fatalf("ERROR: %s\n", err)
+		logger.GLogger(enums.ERROR, err.Error())
 		os.Exit(2)
 	}
 
@@ -86,6 +88,6 @@ func Load() Conf {
 }
 
 func exit(source string) {
-	//log.Fatalln("ERROR: Invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
+	logger.GLogger(enums.ERROR, "Invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
 	os.Exit(61)
 }

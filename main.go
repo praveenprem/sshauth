@@ -5,10 +5,9 @@ import (
 	"github.com/praveenprem/sshauth/config"
 	"github.com/praveenprem/sshauth/github"
 	"fmt"
-	"strings"
+	"github.com/praveenprem/sshauth/enums"
+	"github.com/praveenprem/sshauth/logger"
 )
-
-//TODO Add system logging support
 
 func main() {
 
@@ -19,15 +18,15 @@ func main() {
 	var user, pubKey string
 
 	if len(os.Args) < 2 || len(os.Args) < 3 {
-		//log.Printf("ERROR: arguments missing or not provided")
+		logger.GLogger(enums.ERROR,"arguments missing or not provided")
 		os.Exit(22)
 	} else if len(os.Args) > 4 {
-		//log.Printf("ERROR: too many arguments provided")
+		logger.GLogger(enums.ERROR, "too many arguments provided")
 		os.Exit(7)
 	} else {
 		user = os.Args[1]
 		if user != configs.System_conf.Admin_user && user != configs.System_conf.Default_user {
-			//log.Printf("ERROR: invalid user %s", user)
+			logger.GLogger(enums.ERROR, "invalid user "+user)
 			os.Exit(22)
 		}
 
@@ -42,5 +41,5 @@ func main() {
 		keyChain = github.Init(user, pubKey, configs)
 	}
 
-	fmt.Printf(strings.TrimSpace(keyChain))
+	fmt.Printf(keyChain)
 }
