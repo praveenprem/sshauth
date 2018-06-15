@@ -24,7 +24,7 @@ func loadFile() string {
 	file, err := os.Open(configFile)
 
 	if err != nil {
-		logger.GLogger(enums.ERROR, err.Error())
+		logger.SimpleLogger(enums.ERROR, err.Error())
 		os.Exit(2)
 	}
 
@@ -41,7 +41,7 @@ func confParse() Conf {
 
 	err := yaml.Unmarshal([]byte(configFileContent), &config)
 	if err != nil {
-		logger.GLogger(enums.ERROR, err.Error())
+		logger.SimpleLogger(enums.ERROR, err.Error())
 		os.Exit(2)
 	}
 
@@ -95,6 +95,6 @@ func Load() Conf {
 }
 
 func exit(source string) {
-	logger.GLogger(enums.ERROR, "Invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
+	logger.SimpleLogger(enums.ERROR, "Invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
 	os.Exit(61)
 }

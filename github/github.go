@@ -56,14 +56,14 @@ func getOrganizationMembers(role string, conf classes.GithubConf) []classes.Gith
 	var url = url_api + url_org + "/" + conf.Org + "/" + url_members + "?" + url_role + role + "&" + url_token + conf.Access_token
 	response, err := http.Get(url)
 	if err != nil {
-		logger.GLogger(enums.ERROR, err.Error())
+		logger.SimpleLogger(enums.ERROR, err.Error())
 		os.Exit(70)
 	} else {
 		defer response.Body.Close()
 
 		err := json.NewDecoder(response.Body).Decode(&members)
 		if err != nil {
-			logger.GLogger(enums.ERROR, err.Error())
+			logger.SimpleLogger(enums.ERROR, err.Error())
 			os.Exit(5)
 		}
 	}
@@ -76,14 +76,14 @@ func getTeamMembers(role string, conf classes.GithubConf) []classes.GithubUser {
 	var url = url_api + url_teams + "/" + strconv.Itoa(teamId) + "/" + url_members + "?" + url_role + role + "&" + url_token + conf.Access_token
 	response, err := http.Get(url)
 	if err != nil {
-		logger.GLogger(enums.ERROR, err.Error())
+		logger.SimpleLogger(enums.ERROR, err.Error())
 		os.Exit(70)
 	} else {
 		defer response.Body.Close()
 
 		err := json.NewDecoder(response.Body).Decode(&members)
 		if err != nil {
-			logger.GLogger(enums.ERROR, err.Error())
+			logger.SimpleLogger(enums.ERROR, err.Error())
 			os.Exit(5)
 		}
 	}
@@ -96,14 +96,14 @@ func listTeams(org string, token string, teamName string) int {
 	var url = url_api + url_org + "/" + org + "/" + url_teams + "?" + url_token + token
 	response, err := http.Get(url)
 	if err != nil {
-		logger.GLogger(enums.ERROR, err.Error())
+		logger.SimpleLogger(enums.ERROR, err.Error())
 		os.Exit(70)
 	} else {
 		defer response.Body.Close()
 
 		err := json.NewDecoder(response.Body).Decode(&teams)
 		if err != nil {
-			logger.GLogger(enums.ERROR, err.Error())
+			logger.SimpleLogger(enums.ERROR, err.Error())
 			os.Exit(5)
 		}
 
@@ -114,7 +114,7 @@ func listTeams(org string, token string, teamName string) int {
 		}
 	}
 
-	logger.GLogger(enums.ERROR, err.Error())
+	logger.SimpleLogger(enums.ERROR, err.Error())
 	os.Exit(61)
 
 	return 0
@@ -127,19 +127,19 @@ func keyCapture(members [] classes.GithubUser, publicKey string, conf classes.Co
 		var url = member.Url + "/" + url_keys + "?" + url_token + conf.Github.Access_token
 		response, err := http.Get(url)
 		if err != nil {
-			logger.GLogger(enums.ERROR, err.Error())
+			logger.SimpleLogger(enums.ERROR, err.Error())
 			os.Exit(70)
 		} else {
 			defer response.Body.Close()
 			err := json.NewDecoder(response.Body).Decode(&userKeys)
 			if err != nil {
-				logger.GLogger(enums.ERROR, err.Error())
+				logger.SimpleLogger(enums.ERROR, err.Error())
 				os.Exit(5)
 			}
 		}
 		for _, k := range userKeys {
 			if strings.Contains(k.Key, publicKey) {
-				config.SendAlert(member.Html_url, publicKey)
+				config.SendAlert(member.Login)
 			}
 
 			keys = append(keys, k)

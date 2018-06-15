@@ -15,7 +15,7 @@ const resourceLocal = "/tmp/sshAuthAlert.txt"
 func SendAlert(user string, publicKey string) {
 	conf := Load()
 	if conf.Alerts == (classes.AlertConf{}) {
-		logger.GLogger(enums.WARNING, "Alerting skipped. No alerting configuration found")
+		logger.SimpleLogger(enums.WARNING, "Alerting skipped. No alerting configuration found")
 	} else {
 			if !checkLastKey(publicKey) {
 			if conf.Alerts.Slack != "" {
@@ -37,7 +37,7 @@ func isFileExist() bool {
 	if err == nil {
 		return true
 	} else {
-		logger.GLogger(enums.WARNING, err.Error())
+		logger.SimpleLogger(enums.WARNING, err.Error())
 		return false
 	}
 }
@@ -50,7 +50,7 @@ func checkLastKey(publicKey string) bool {
 
 		file, err := os.Open(resourceLocal)
 		if err != nil {
-			logger.GLogger(enums.WARNING, err.Error())
+			logger.SimpleLogger(enums.WARNING, err.Error())
 			return false
 		}
 
@@ -68,7 +68,7 @@ func checkLastKey(publicKey string) bool {
 func logNewAlert(publicKey string) bool {
 	logFile, err := os.OpenFile(resourceLocal, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
-		logger.GLogger(enums.WARNING, err.Error())
+		logger.SimpleLogger(enums.WARNING, err.Error())
 		return false
 	}
 	defer logFile.Close()
@@ -83,7 +83,7 @@ func logNewAlert(publicKey string) bool {
 func clearLast() {
 	logFile, err := os.OpenFile(resourceLocal, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
-		logger.GLogger(enums.WARNING, err.Error())
+		logger.SimpleLogger(enums.WARNING, err.Error())
 	}
 	defer logFile.Close()
 
@@ -98,11 +98,11 @@ func slack(user string, host string, url string) {
 
 	body, err := json.Marshal(payload)
 	if err != nil {
-		logger.GLogger(enums.WARNING, err.Error())
+		logger.SimpleLogger(enums.WARNING, err.Error())
 	} else {
 		_, err = http.Post(url, "application/json", bytes.NewReader(body))
 		if err != nil {
-			logger.GLogger(enums.WARNING, err.Error())
+			logger.SimpleLogger(enums.WARNING, err.Error())
 		}
 	}
 
