@@ -84,6 +84,13 @@ func Load() Conf {
 		}
 	}
 
+	if configuration.Alerts.Hipchat != (classes.Hipchat{}) {
+		if configuration.Alerts.Hipchat.Url == "" ||
+			configuration.Alerts.Hipchat.Token == "" {
+				exit("HipChat")
+		}
+	}
+
 	return configuration
 }
 
