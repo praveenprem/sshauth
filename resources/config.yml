@@ -56,7 +56,7 @@ github:
   team_name:
 
 
-# TODO Implement SQL server based authentication
+# TODO To be implement SQL server based authentication
 # SQL server based authentication if public service (GitHub/BitBucket) based authentication is not an option for security
 # or any other reasons. These configurations can be used to make any SQL database server as an authentication service
 # provider. Preferably a MySQL databases.
@@ -89,7 +89,7 @@ sql:
 #      @param {required} token: Authentication token to validate the request is authorised to access the HipChat server.
 alerts:
   slack:
-#  TODO Implement HipChat alerting
+#  TODO HipChat oo be implement alerting
   hipchat:
     url:
     token:

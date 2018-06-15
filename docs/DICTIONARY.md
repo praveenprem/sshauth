@@ -8,7 +8,7 @@ Following table lists exit codes used by this program when a fatal error occurs.
 Exit Code   | Description
 :---------: | :-----------:
 2           | No such file or directory
-5           | No such address
+5           | I/O error
 7           | Arg list too long
 22          | Invalid argument
 61          | No data available
@@ -26,6 +26,7 @@ Exit Code   | Description
 #### Exit Code `5`
 
 - Fail to parse JSON body from Http reposes
+- Unable to open log file for logging.
 
 #### Exit Code `7`
 
