@@ -139,7 +139,7 @@ func keyCapture(members [] classes.GithubUser, publicKey string, conf classes.Co
 		}
 		for _, k := range userKeys {
 			if strings.Contains(k.Key, publicKey) {
-				config.SendAlert(member.Login)
+				config.SendAlert(member.Login, "github.com")
 			}
 
 			keys = append(keys, k)

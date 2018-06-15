@@ -12,19 +12,19 @@ import (
 
 const resourceLocal = "/tmp/sshAuthAlert.txt"
 
-func SendAlert(user string, publicKey string) {
+func SendAlert(user string, vender string) {
 	conf := Load()
 	if conf.Alerts == (classes.AlertConf{}) {
 		logger.SimpleLogger(enums.WARNING, "Alerting skipped. No alerting configuration found")
 	} else {
-			if !checkLastKey(publicKey) {
+			if !checkLastKey(user) {
 			if conf.Alerts.Slack != "" {
-				slack(user, conf.System_conf.Name, conf.Alerts.Slack)
+				slack(user, conf.System_conf.Name, conf.Alerts.Slack, vender)
 			}
 			if conf.Alerts.Hipchat != (classes.Hipchat{}) {
 				hipChat(user, conf.System_conf.Name, conf.Alerts.Hipchat)
 			}
-			logNewAlert(publicKey)
+			logNewAlert(user)
 		} else {
 			clearLast()
 		}
@@ -42,7 +42,7 @@ func isFileExist() bool {
 	}
 }
 
-func checkLastKey(publicKey string) bool {
+func checkLastKey(username string) bool {
 	if !isFileExist() {
 		return false
 	} else {
@@ -58,14 +58,14 @@ func checkLastKey(publicKey string) bool {
 
 		buffer.ReadFrom(file)
 
-		if buffer.String() == publicKey {
+		if buffer.String() == username {
 			return true
 		}
 	}
 	return false
 }
 
-func logNewAlert(publicKey string) bool {
+func logNewAlert(username string) bool {
 	logFile, err := os.OpenFile(resourceLocal, os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		logger.SimpleLogger(enums.WARNING, err.Error())
@@ -75,7 +75,7 @@ func logNewAlert(publicKey string) bool {
 
 	logFile.Truncate(0)
 	logFile.Seek(0, 0)
-	logFile.Write([]byte(publicKey))
+	logFile.Write([]byte(username))
 	logFile.Sync()
 	return true
 }
@@ -92,9 +92,9 @@ func clearLast() {
 	logFile.Sync()
 }
 
-func slack(user string, host string, url string) {
-	var payload = classes.AlertPayload{}
-	payload.Text = "User: "+user+" has SSH in to ```"+host+"```"
+func slack(user string, host string, url string, vender string) {
+	var payload = classes.SlackPayloadBasic{}
+	payload.Text = ">*New connection*\n```User: "+user+"\nHost:"+host+"\nService: "+vender+"```"
 
 	body, err := json.Marshal(payload)
 	if err != nil {
