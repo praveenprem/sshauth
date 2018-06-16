@@ -10,6 +10,7 @@ import (
 	"github.com/praveenprem/sshauth/config"
 	"github.com/praveenprem/sshauth/logger"
 	"github.com/praveenprem/sshauth/enums"
+	"github.com/praveenprem/sshauth/github/classes"
 )
 
 const (
@@ -25,7 +26,7 @@ const (
 )
 
 func Init(username string, publicKey string, config classes.Conf) string {
-	var accessKeysList [] classes.GithubKey
+	var accessKeysList [] github.Key
 	var result string
 	if config.System_conf.Method == "team" {
 		if config.System_conf.Admin_user == username {
@@ -51,8 +52,8 @@ func Init(username string, publicKey string, config classes.Conf) string {
 	return result
 }
 
-func getOrganizationMembers(role string, conf classes.GithubConf) []classes.GithubUser {
-	var members [] classes.GithubUser
+func getOrganizationMembers(role string, conf classes.GithubConf) []github.User {
+	var members [] github.User
 	var url = url_api + url_org + "/" + conf.Org + "/" + url_members + "?" + url_role + role + "&" + url_token + conf.Access_token
 	response, err := http.Get(url)
 	if err != nil {
@@ -70,8 +71,8 @@ func getOrganizationMembers(role string, conf classes.GithubConf) []classes.Gith
 	return members
 }
 
-func getTeamMembers(role string, conf classes.GithubConf) []classes.GithubUser {
-	var members [] classes.GithubUser
+func getTeamMembers(role string, conf classes.GithubConf) []github.User {
+	var members [] github.User
 	teamId := listTeams(conf.Org, conf.Access_token, conf.Team_name)
 	var url = url_api + url_teams + "/" + strconv.Itoa(teamId) + "/" + url_members + "?" + url_role + role + "&" + url_token + conf.Access_token
 	response, err := http.Get(url)
@@ -92,7 +93,7 @@ func getTeamMembers(role string, conf classes.GithubConf) []classes.GithubUser {
 }
 
 func listTeams(org string, token string, teamName string) int {
-	var teams [] classes.GithubTeam
+	var teams [] github.Team
 	var url = url_api + url_org + "/" + org + "/" + url_teams + "?" + url_token + token
 	response, err := http.Get(url)
 	if err != nil {
@@ -120,10 +121,10 @@ func listTeams(org string, token string, teamName string) int {
 	return 0
 }
 
-func keyCapture(members [] classes.GithubUser, publicKey string, conf classes.Conf) []classes.GithubKey {
-	var keys []classes.GithubKey
+func keyCapture(members [] github.User, publicKey string, conf classes.Conf) []github.Key {
+	var keys []github.Key
 	for _, member := range members {
-		var userKeys [] classes.GithubKey
+		var userKeys [] github.Key
 		var url = member.Url + "/" + url_keys + "?" + url_token + conf.Github.Access_token
 		response, err := http.Get(url)
 		if err != nil {
