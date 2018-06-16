@@ -55,7 +55,7 @@ func Load() Conf {
 		configuration.System_conf.Name == "" ||
 		configuration.System_conf.Admin_user == "" ||
 		configuration.System_conf.Default_user == "" {
-			exit("System")
+		exit("System")
 	}
 
 	if configuration.System_conf.Service == "github" {
@@ -64,11 +64,44 @@ func Load() Conf {
 			configuration.Github.Admin_role == "" ||
 			configuration.Github.Default_role == "" ||
 			configuration.Github.Org == "" {
-				exit("GitHub")
+			exit("GitHub")
 		} else {
 			if configuration.System_conf.Method == "team" {
 				if configuration.Github.Team_name == "" {
 					exit("GitHub")
+				}
+			}
+		}
+	}
+
+	if configuration.System_conf.Service == "gitlab" {
+		if configuration.System_conf.Method == "" ||
+			configuration.Gitlab.Access_token == "" ||
+			configuration.Gitlab.Admin_role == "" ||
+			configuration.Gitlab.Default_role == "" ||
+			configuration.Gitlab.Org_url == "" {
+			exit("GitLab")
+		} else {
+			if configuration.System_conf.Method == "group" {
+				if configuration.Gitlab.Group_name == "" {
+					exit("GitLab")
+				} else {
+					if configuration.Gitlab.Inherit_permission.Admin_user && configuration.Gitlab.Inherit_permission.Admin_stack == "" {
+						exit("GitLab -> inherit_permission")
+					} else {
+						if configuration.Gitlab.Inherit_permission.Admin_user && (configuration.Gitlab.Inherit_permission.Admin_stack != classes.UP &&
+							configuration.Gitlab.Inherit_permission.Admin_stack != classes.DOWN) {
+							exit("GitLab -> admin_stack")
+						}
+					}
+					if configuration.Gitlab.Inherit_permission.Default_user && configuration.Gitlab.Inherit_permission.Default_stack == "" {
+						exit("GitLab -> inherit_permission")
+					} else {
+						if configuration.Gitlab.Inherit_permission.Default_user && (configuration.Gitlab.Inherit_permission.Default_stack != classes.UP &&
+							configuration.Gitlab.Inherit_permission.Default_stack != classes.DOWN) {
+							exit("GitLab -> default_stack")
+						}
+					}
 				}
 			}
 		}
@@ -79,7 +112,7 @@ func Load() Conf {
 			configuration.Sql.Host == "" ||
 			configuration.Sql.Table == "" ||
 			configuration.Sql.User == "" ||
-			configuration.Sql.Password == ""  {
+			configuration.Sql.Password == "" {
 			exit("SQLConf")
 		}
 	}
@@ -87,7 +120,7 @@ func Load() Conf {
 	if configuration.Alerts.Hipchat != (classes.Hipchat{}) {
 		if configuration.Alerts.Hipchat.Url == "" ||
 			configuration.Alerts.Hipchat.Token == "" {
-				exit("HipChat")
+			exit("HipChat")
 		}
 	}
 
@@ -95,6 +128,6 @@ func Load() Conf {
 }
 
 func exit(source string) {
-	logger.SimpleLogger(enums.ERROR, "Invalid configuration for source \""+ source +"\", please check the \"config.yml\" file")
+	logger.SimpleLogger(enums.ERROR, "Invalid configuration for source \""+source+"\", please check the \"config.yml\" file")
 	os.Exit(61)
 }

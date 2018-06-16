@@ -18,9 +18,9 @@
 system_conf:
 # Possible value: any name
   name:
-#  Possible values: github, bitbucket, database
+#  Possible values: github, gitlab, bitbucket, database
   service:
-# Possible values: team, org
+# Possible values: team, org, group
   method:
 #  Possible values: any user of the local system (root, ubuntu, etc)
   admin_user:
@@ -55,6 +55,14 @@ github:
 #  Any team name in the Organisation. Can be found on the Homepage of the team below logo. I.E. @OrgName/teamName
   team_name:
 
+
+gitlab:
+  org_url:
+  access_token:
+  group_name:
+  admin_role:
+  default_role:
+  inherit_permission:
 
 # TODO To be implement SQL server based authentication
 # SQL server based authentication if public service (GitHub/BitBucket) based authentication is not an option for security
