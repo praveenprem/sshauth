@@ -1,5 +1,12 @@
 package github
 
+/**
+ * Package github
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 16/06/2018 14:54
+ */
+
 type User struct {
 	Login string
 	Id int

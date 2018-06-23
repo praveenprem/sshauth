@@ -13,6 +13,13 @@ import (
 	"github.com/praveenprem/sshauth/github/classes"
 )
 
+/**
+ * Package github
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 11/06/2018 21:39
+ */
+
 const (
 	url_api     = "https://api.github.com/"
 	url_org     = "orgs"
@@ -36,7 +43,9 @@ func Init(username string, publicKey string, config classes.Conf) string {
 			teamMembers := getTeamMembers(config.Github.Default_role, config.Github)
 			accessKeysList = keyCapture(teamMembers, publicKey, config)
 		}
-	} else if config.System_conf.Method == "org" {
+	}
+
+	if config.System_conf.Method == "org" {
 		if config.System_conf.Admin_user == username {
 			orgMembers := getOrganizationMembers(config.Github.Admin_role, config.Github)
 			accessKeysList = keyCapture(orgMembers, publicKey, config)
@@ -73,7 +82,7 @@ func getOrganizationMembers(role string, conf classes.GithubConf) []github.User 
 
 func getTeamMembers(role string, conf classes.GithubConf) []github.User {
 	var members [] github.User
-	teamId := listTeams(conf.Org, conf.Access_token, conf.Team_name)
+	teamId := getTeamId(conf.Org, conf.Access_token, conf.Team_name)
 	var url = url_api + url_teams + "/" + strconv.Itoa(teamId) + "/" + url_members + "?" + url_role + role + "&" + url_token + conf.Access_token
 	response, err := http.Get(url)
 	if err != nil {
@@ -92,7 +101,7 @@ func getTeamMembers(role string, conf classes.GithubConf) []github.User {
 	return members
 }
 
-func listTeams(org string, token string, teamName string) int {
+func getTeamId(org string, token string, teamName string) int {
 	var teams [] github.Team
 	var url = url_api + url_org + "/" + org + "/" + url_teams + "?" + url_token + token
 	response, err := http.Get(url)
@@ -115,7 +124,7 @@ func listTeams(org string, token string, teamName string) int {
 		}
 	}
 
-	logger.SimpleLogger(enums.ERROR, err.Error())
+	logger.SimpleLogger(enums.ERROR, "unable to locate team \""+teamName+"\". Please check the configuration")
 	os.Exit(61)
 
 	return 0

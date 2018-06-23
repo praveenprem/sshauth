@@ -1,5 +1,12 @@
 package github
 
+/**
+ * Package github
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 16/06/2018 14:50
+ */
+
 type Team struct {
 	Name string
 	Id int
