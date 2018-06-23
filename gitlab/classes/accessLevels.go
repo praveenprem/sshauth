@@ -1,5 +1,12 @@
 package gitlab
 
+/**
+ * Package gitlab
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 16/06/2018 15:06
+ */
+
 type level int
 
 const (
@@ -9,13 +16,3 @@ const (
 	MASTER = 40
 	OWNER = 50
 )
-
-func (level level) String() string {
-	l := []string{"GUEST", "REPORTER", "DEVELOPER", "MASTER", "OWNER"}
-
-	if level < GUEST || level > OWNER {
-		return "GUEST"
-	}
-
-	return l[level]
-}

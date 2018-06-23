@@ -1,5 +1,12 @@
 package classes
 
+/**
+ * Package classes
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 13/06/2018 22:49
+ */
+
 type AlertConf struct {
 	Hipchat Hipchat
 	Slack   string

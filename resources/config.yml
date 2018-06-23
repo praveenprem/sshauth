@@ -43,6 +43,12 @@ system_conf:
 #                                       Is used in conjunction with "system_conf.method" above and only applicable if
 #                                       "team" is chosen as parameter. Can be found on the Homepage of the team below
 #                                        logo. I.E. @OrgName/teamName
+# @param {required} admin_role:
+#                             This is used in conjunction with the "system_conf.admin_user", where all the users with
+#                             Given role can login as admin_user.
+# @param {required} default_role:
+#                             This is used in conjunction with the "system_conf.default_user", where all the users with
+#                             Given role can login as default_user.
 github:
 # Personal access token of a permanent user (owner) of the Organisation. First user is recommended
   access_token:
@@ -56,13 +62,69 @@ github:
   team_name:
 
 
+# Self-Hosted GitLab server based authentication. Following configuration can be used to allow users to authenticate
+# against self-hosted GitLab server as public server does not allow users to assume administrator role, therefore script
+# is unable to access users information through API.
+# @param {required} org_url:
+#                           FQDN of the Gitlab server. I.E https://gitlab.test.com
+# @param {required} access_token:
+#                               Access token from a user with Administration privileges. Minimum of following scopes
+#                               required for this system to function.
+#                               scopes: api, read_user, sudo
+# @param {required/optional} group_name:
+#                                      Is used in conjunction with "system_conf.method" above and only applicable if
+#                                      "group" is chosen as parameter. This can be any group from the GitLab server
+# @param {required} admin_role:
+#                              This is used in conjunction with the "system_conf.admin_user", where all the users with
+#                              Given role can login as admin_user.
+# @param {required} default_role:
+#                              This is used in conjunction with the "system_conf.default_user", where all the users with
+#                              Given role can login as default_user.
+# @param {required/optional} inherit_permission:
+#                                              Following parameters are optional and only used to allow with equal role,
+#                                              lower or higher is allowed to login as given user. "admin_user" and
+#                                              "default_user" is referring to the relationship with above roles and
+#                                               system_conf users.
+# @param {required/optional} admin_user:
+#                                        Boolean value is accepted, default to false and if left false users assigned to
+#                                        the "admin_role" can login as "system_conf.admin_user".
+#                                        If true "admin_stack" must be defined.
+# @param {required/optional} admin_stack:
+#                                      This is only required if the "inherit_permission.admin_user" is set to true. Only
+#                                      possible values are "up" or "down". "up" will give assess to users with
+#                                      "admin_role" and lower permission. I.E if "admin_role" is set to "Reporter" with
+#                                      "admin_stack" set to "up", this will allow any user with "Reporter" or "Guest"
+#                                      permission to connect. Down does the opposite.
+# @param {required/optional} default_user:
+#                                        Boolean value is accepted, default to false and if left false users assigned to
+#                                        the "default_role" can login as "system_conf.default_user".
+#                                        If true "default_stack" must be defined.
+# @param {required/optional} default_stack:
+#                                      This is only required if the "inherit_permission.default_user" is set to true.
+#                                      Only possible values are "up" or "down". "down" will give assess to users with
+#                                      "default_role" and higher permission. I.E if "default_role" is set to "Master" with
+#                                      "admin_stack" set to "down", this will allow any user with "Master" or "Owner"
+#                                      permission to connect. Up does the opposite.
 gitlab:
+# Fully Qualified Domain Name of the GitLab Self-Hosted server.
   org_url:
+# Personal access token of the GitLab owner. Recommended to use the "root" account.
   access_token:
+# Any GitLab group name from the GitLab server above.
   group_name:
+# Org (admin, member, all) / Group (owner, master, developer, reporter, guest)
   admin_role:
+# Org (admin, member, all) / Group (owner, master, developer, reporter, guest)
   default_role:
   inherit_permission:
+#   True / False
+    admin_user:
+#   up / down (recommended)
+    admin_stack:
+#   True / False
+    default_user:
+#   up / down (recommended)
+    default_stack:
 
 # TODO To be implement SQL server based authentication
 # SQL server based authentication if public service (GitHub/BitBucket) based authentication is not an option for security
@@ -97,7 +159,7 @@ sql:
 #      @param {required} token: Authentication token to validate the request is authorised to access the HipChat server.
 alerts:
   slack:
-#  TODO HipChat oo be implement alerting
+#  TODO HipChat to be implement alerting
   hipchat:
     url:
     token:

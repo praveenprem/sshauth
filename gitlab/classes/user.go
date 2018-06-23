@@ -1,5 +1,12 @@
 package gitlab
 
+/**
+ * Package gitlab
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 16/06/2018 15:20
+ */
+
 type User struct {
 	Id int
 	Name string

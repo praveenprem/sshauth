@@ -7,7 +7,15 @@ import (
 	"github.com/praveenprem/sshauth/classes"
 	"github.com/praveenprem/sshauth/enums"
 	"github.com/praveenprem/sshauth/logger"
+	"strings"
 )
+
+/**
+ * Package config
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 12/06/2018 20:21
+ */
 
 type Conf = classes.Conf
 
@@ -82,6 +90,7 @@ func Load() Conf {
 			configuration.Gitlab.Org_url == "" {
 			exit("GitLab")
 		} else {
+			configuration.Gitlab.Org_url = strings.TrimRight(configuration.Gitlab.Org_url, "/")
 			if configuration.System_conf.Method == "group" {
 				if configuration.Gitlab.Group_name == "" {
 					exit("GitLab")

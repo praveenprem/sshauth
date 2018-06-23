@@ -7,6 +7,13 @@ import (
 	"github.com/praveenprem/sshauth/enums"
 )
 
+/**
+ * Package gitlab
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 14/06/2018 20:57
+ */
+
 const logFilePath = "/var/log/sshauth.log"
 
 func SimpleLogger(level enums.Level, message string) {

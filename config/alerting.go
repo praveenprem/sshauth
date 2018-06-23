@@ -10,6 +10,13 @@ import (
 	"github.com/praveenprem/sshauth/logger"
 )
 
+/**
+ * Package config
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 12/06/2018 21:48
+ */
+
 const resourceLocal = "/tmp/sshAuthAlert.txt"
 
 func SendAlert(user string, vender string) {

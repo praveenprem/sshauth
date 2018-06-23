@@ -1,5 +1,12 @@
 package gitlab
 
+/**
+ * Package gitlab
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 16/06/2018 15:08
+ */
+
 type Group struct {
 	Id int
 	Web_url string
@@ -12,7 +19,7 @@ type Group struct {
 	Request_access_enabled bool
 	Full_name string
 	Full_path string
-	Parent_id int
+	Parent_id string
 	Ldap_cn string
 	Ldap_access string
 }

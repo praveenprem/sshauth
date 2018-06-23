@@ -1,5 +1,12 @@
 package classes
 
+/**
+ * Package classes
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 16/06/2018 16:52
+ */
+
 type GitLabConf struct {
 	Access_token string
 	Admin_role string

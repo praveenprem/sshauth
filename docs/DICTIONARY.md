@@ -8,6 +8,7 @@ Following table lists exit codes used by this program when a fatal error occurs.
 Exit Code   | Description
 :---------: | :-----------:
 2           | No such file or directory
+3           | No such process
 5           | I/O error
 7           | Arg list too long
 22          | Invalid argument
@@ -22,6 +23,10 @@ Exit Code   | Description
 
 - Fail to open the `config.yml` file
 - Fail to parse the content of `config.yml`. Such as an invalid syntax issue
+
+### Exit Code `3`
+
+- Invalid service provider declared in `config.yml`'s `service`.
 
 #### Exit Code `5`
 

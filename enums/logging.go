@@ -1,5 +1,12 @@
 package enums
 
+/**
+ * Package enums
+ * Project sshauth
+ * Created by Praveen Premaratne
+ * Created on 14/06/2018 22:32
+ */
+
 type Level int
 
 const (
