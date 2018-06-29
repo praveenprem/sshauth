@@ -128,6 +128,8 @@ SSH Auth plugin is licensed under the MIT License, please refer to the [LICENSE]
 
 For versions available, please refer to the [tags on this repository](https://github.com/praveenprem/sshauth/tags).
 
+Source code for each release version can be found under the branch with `r-` prefix. I.E `r-1.0.0` for the version `1.0.0`
+
 ## Authors
 
  | <div><a href="https://github.com/praveenprem"><img width="200" src="https://avatars3.githubusercontent.com/u/23165760"/><p></p><p>Praveen Premaratne</p></a></div> |
