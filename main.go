@@ -17,7 +17,6 @@ import (
  * Created on 10/06/2018 21:59
  */
 
-//TODO Check if statements for loopholes
 func main() {
 
 	var keyChain string

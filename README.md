@@ -5,10 +5,10 @@
  changes made on third-party service side will take effect immediately across all systems.  
  
  This plugin will allow you to configure one of the following service as an authentication mechanism:
- - GitHub
- - GitLab (Self-Hosted only)
- - AWS IAM
- - SQL server
+ - GitHub v1.0.0
+ - GitLab (Self-Hosted only) v1.0.0
+ - AWS IAM v2.0.0
+ - SQL server v2.0.0
  
 _**WARNING:** This plugin is NOT a replacement option for default_ **authorized_keys**!
 _Should always be used as a failover._
@@ -49,8 +49,8 @@ during the [testing](#test-installation-and-configuration) stage.
  1. Download a copy of the latest release from the [Releases tab](https://github.com/praveenprem/sshauth/releases).
  2. Unzip the TAR Zip and copy the `sshauth` binary file into `/usr/local/bin/` folder.
  3. Change file permission to allow binary execution with `chmod +x /usr/local/bin/sshauth`.
- 4. Download a copy of [config.yml](./resources/config.yml) and [configure](./resources/docs/CONFIGURE.md) to use your
-    desired third-party service.
+ 4. Download a copy of [config.yml](./resources/config.yml) and configure to use your desired third-party service.
+    [Configuration examples](./resources/docs/CONFIGURE.md)
  5. Update the `/etc/ssh/sshd_config` to reflect the following changes:
     - `AuthorizedKeysCommand /usr/local/bin/sshauth %u %k`.
     - `AuthorizedKeysCommandUser root`. This differ on which user own the `sshauth` binary execution file.
@@ -128,7 +128,7 @@ SSH Auth plugin is licensed under the MIT License, please refer to the [LICENSE]
 
 For versions available, please refer to the [tags on this repository](https://github.com/praveenprem/sshauth/tags).
 
-Source code for each release version can be found under the branch with `r-` prefix. I.E `r-1.0.0` for the version `1.0.0`
+Source code for each release version can be found under the branch with     `r-` prefix. I.E `r-1.0.0` for the version `1.0.0`
 
 ## Authors
 

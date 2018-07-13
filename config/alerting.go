@@ -22,9 +22,9 @@ const resourceLocal = "/tmp/sshAuthAlert.txt"
 func SendAlert(user string, vender string) {
 	conf := Load()
 	if conf.Alerts == (classes.AlertConf{}) {
-		logger.SimpleLogger(enums.WARNING, "Alerting skipped. No alerting configuration found")
+		logger.SimpleLogger(enums.WARNING, "alerting skipped. no alerting configuration found")
 	} else {
-			if !checkLastKey(user) {
+		if !checkLastKey(user) {
 			if conf.Alerts.Slack != "" {
 				slack(user, conf.System_conf.Name, conf.Alerts.Slack, vender)
 			}
@@ -101,7 +101,7 @@ func clearLast() {
 
 func slack(user string, host string, url string, vender string) {
 	var payload = classes.SlackPayloadBasic{}
-	payload.Text = ">*New connection*\n```User: "+user+"\nHost:"+host+"\nService: "+vender+"```"
+	payload.Text = ">*New connection*\n```User: " + user + "\nHost: " + host + "\nService: " + vender + "```"
 
 	body, err := json.Marshal(payload)
 	if err != nil {
@@ -116,5 +116,5 @@ func slack(user string, host string, url string, vender string) {
 }
 
 func hipChat(user string, host string, conf classes.Hipchat) {
-//	TODO HipChat to be implemented
+	//	TODO HipChat to be implemented
 }

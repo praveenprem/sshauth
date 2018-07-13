@@ -203,7 +203,6 @@ func getGroupId(conf config.Conf) int {
 	return 0
 }
 
-//TODO Fetch keys
 func getKeys(groupMembers []gitlab.Members, orgUsers []gitlab.User, publicKey string, conf config.Conf) []gitlab.Key {
 	var keys []gitlab.Key
 	if groupMembers != nil {
