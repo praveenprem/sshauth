@@ -44,7 +44,7 @@ _Should always be used as a failover._
  
 ### Installation
 
-###### _It is recommended to run following installation instruction as `root` user of the system to avoid any permission issues during runtime and [testing](#test-installation-and-configuration") stage._
+###### _It is recommended to run following installation instruction as `root` user of the system to avoid any permission issues during runtime and [testing](#test-installation-and-configuration) stage._
 
  1. Download a copy of the latest release from the [Releases tab](https://github.com/praveenprem/sshauth/releases). Which
     consist of SSHAuth binary and the latest [config.yml](./resources/config.yml).
