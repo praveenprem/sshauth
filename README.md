@@ -46,15 +46,19 @@ _Should always be used as a failover._
 It is recommended to run following installation instruction as `root` user of the system to avoid any permission issues
 during the [testing](#test-installation-and-configuration) stage.
 
- 1. Download a copy of the latest release from the [Releases tab](https://github.com/praveenprem/sshauth/releases).
- 2. Unzip the TAR Zip and copy the `sshauth` binary file into `/usr/local/bin/` folder.
+ 1. Download a copy of the latest release from the [Releases tab](https://github.com/praveenprem/sshauth/releases). Which
+    consist of SSHAuth binary and the latent [config.yml](./resources/config.yml).
+ 2. Unzip the TAR (Zip) and copy the `sshauth` binary file into `/usr/local/bin/` folder. This is not plugin requirement
+    this location can be anywhere in the system as long as the path to file exist in the $PATH variable and binary can
+    be executed from anywhere in the system. 
  3. Change file permission to allow binary execution with `chmod +x /usr/local/bin/sshauth`.
- 4. Download a copy of [config.yml](./resources/config.yml) and configure to use your desired third-party service.
-    [Configuration examples](./resources/docs/CONFIGURE.md)
- 5. Update the `/etc/ssh/sshd_config` to reflect the following changes:
+ 4. Create a folder `sshauth` in the `/etc/`. The path will look like this `/etc/sshauth/`
+ 5. Copy the [config.yml](./resources/config.yml) file to this `/etc/sshauth/` (`/etc/sshauth/config.yml`) and configure
+    to use your desired third-party service. [Configuration examples](./resources/docs/CONFIGURE.md)
+ 6. Update the `/etc/ssh/sshd_config` to reflect the following changes:
     - `AuthorizedKeysCommand /usr/local/bin/sshauth %u %k`.
     - `AuthorizedKeysCommandUser root`. This differ on which user own the `sshauth` binary execution file.
- 6. Apply the changes made to the SSH daemon using system specific command. I.E. `service ssh restart` for Ubuntu.
+ 7. Apply the changes made to the SSH daemon using system specific command. I.E. `service ssh restart` for Ubuntu.
     It is recommended to [test](#test-installation-and-configuration) the installation before applying these changes.
     
 ### Test installation and configuration
