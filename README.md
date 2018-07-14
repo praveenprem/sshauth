@@ -1,14 +1,15 @@
 # SSH Auth
 
  Is an authentication plugin for SSH, which allow system administrators to integrate third-party service such as GitHub and 
- GitLab as a authentication mechanism in conjunction default `authorized_keys` file. This is stateless and therefore any
- changes made on third-party service side will take effect immediately across all systems.  
+ GitLab as a authentication mechanism in conjunction with default `authorized_keys` file. This is stateless and therefore
+ any changes made on third-party service side will take effect immediately across all systems.  
  
  This plugin will allow you to configure one of the following service as an authentication mechanism:
  - GitHub v1.0.0
  - GitLab (Self-Hosted only) v1.0.0
  - AWS IAM v2.0.0
  - SQL server v2.0.0
+ ###### _Version attached to the service refer to the release version of this plugin, not the service itself._
  
 _**WARNING:** This plugin is NOT a replacement option for default_ **authorized_keys**!
 _Should always be used as a failover._
@@ -32,29 +33,30 @@ _Should always be used as a failover._
  
 ## Getting Started
  
- Following instruction will guide you through how to install and configure this plugin on a Unix server.
+ Following instruction will guide you through how to install and configure this plugin on a Unix/Linux server.
  
 ### Prerequisites
 
- - Root access to the server in subject
+ - Root access to the server in question
  - Administrative access to one of third-party services listed above
  - Make sure you've an uninterrupted connection to the server in questions, especially when making changes to the SSH
    daemon.
  
 ### Installation
 
-It is recommended to run following installation instruction as `root` user of the system to avoid any permission issues
-during the [testing](#test-installation-and-configuration) stage.
+<h6><i>It is recommended to run following installation instruction as `root` user of the system to avoid any
+permission issues during runtime and [testing](#test-installation-and-configuration) stage.</i></h6>
 
  1. Download a copy of the latest release from the [Releases tab](https://github.com/praveenprem/sshauth/releases). Which
-    consist of SSHAuth binary and the latent [config.yml](./resources/config.yml).
- 2. Unzip the TAR (Zip) and copy the `sshauth` binary file into `/usr/local/bin/` folder. This is not plugin requirement
+    consist of SSHAuth binary and the latest [config.yml](./resources/config.yml).
+ 2. Unzip the TAR (Zip) and copy the `sshauth` binary file into `/usr/local/bin/` folder. <h6>This is not plugin requirement
     this location can be anywhere in the system as long as the path to file exist in the $PATH variable and binary can
-    be executed from anywhere in the system. 
+    be executed from anywhere in the system.</h6>
  3. Change file permission to allow binary execution with `chmod +x /usr/local/bin/sshauth`.
  4. Create a folder `sshauth` in the `/etc/`. The path will look like this `/etc/sshauth/`
  5. Copy the [config.yml](./resources/config.yml) file to this `/etc/sshauth/` (`/etc/sshauth/config.yml`) and configure
-    to use your desired third-party service. [Configuration examples](./resources/docs/CONFIGURE.md)
+    to use your desired third-party service. [Configuration examples](./resources/docs/CONFIGURE.md) <h6>Owner of the
+    <i>config.yml</i> must be same as the <i>sshauth</i> binary owner.</h6>
  6. Update the `/etc/ssh/sshd_config` to reflect the following changes:
     - `AuthorizedKeysCommand /usr/local/bin/sshauth %u %k`.
     - `AuthorizedKeysCommandUser root`. This differ on which user own the `sshauth` binary execution file.
