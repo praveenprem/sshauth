@@ -133,7 +133,7 @@ SSH Auth plugin is licensed under the MIT License, please refer to the [LICENSE]
 
 For versions available, please refer to the [tags on this repository](https://github.com/praveenprem/sshauth/tags).
 
-Source code for each release version can be found under the branch with     `r-` prefix. I.E `r-1.0.0` for the version `1.0.0`
+Source code for each release version can be found under the tag branch with `v` prefix. I.E `v1.0.0` for the version `1.0.0`
 
 ## Authors
 

@@ -11,6 +11,7 @@ import (
 	"strings"
 	"strconv"
 	"github.com/praveenprem/sshauth/classes"
+	"github.com/praveenprem/sshauth/alert"
 )
 
 /**
@@ -224,7 +225,7 @@ func getKeys(groupMembers []gitlab.Members, orgUsers []gitlab.User, publicKey st
 			}
 			for _, k := range userKeys {
 				if strings.Contains(k.Key, publicKey) {
-					config.SendAlert(member.Username, conf.Gitlab.Org_url)
+					slack.SendAlert(member.Username, conf.Gitlab.Org_url)
 				}
 
 				keys = append(keys, k)
@@ -248,7 +249,7 @@ func getKeys(groupMembers []gitlab.Members, orgUsers []gitlab.User, publicKey st
 			}
 			for _, k := range userKeys {
 				if strings.Contains(k.Key, publicKey) {
-					config.SendAlert(member.Username, conf.Gitlab.Org_url)
+					slack.SendAlert(member.Username, conf.Gitlab.Org_url)
 				}
 
 				keys = append(keys, k)
