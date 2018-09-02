@@ -7,10 +7,10 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"github.com/praveenprem/sshauth/config"
 	"github.com/praveenprem/sshauth/logger"
 	"github.com/praveenprem/sshauth/enums"
 	"github.com/praveenprem/sshauth/github/classes"
+	"github.com/praveenprem/sshauth/alert"
 )
 
 /**
@@ -149,7 +149,7 @@ func keyCapture(members [] github.User, publicKey string, conf classes.Conf) []g
 		}
 		for _, k := range userKeys {
 			if strings.Contains(k.Key, publicKey) {
-				config.SendAlert(member.Login, "github.com")
+				slack.SendAlert(member.Login, "github.com")
 			}
 
 			keys = append(keys, k)

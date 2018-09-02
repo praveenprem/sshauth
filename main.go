@@ -8,6 +8,7 @@ import (
 	"github.com/praveenprem/sshauth/enums"
 	"github.com/praveenprem/sshauth/logger"
 	"github.com/praveenprem/sshauth/gitlab"
+	"github.com/praveenprem/sshauth/alert"
 )
 
 /**
@@ -35,6 +36,7 @@ func main() {
 		user = os.Args[1]
 		if user != configs.System_conf.Admin_user && user != configs.System_conf.Default_user {
 			logger.SimpleLogger(enums.ERROR, "invalid user \""+user+"\"")
+			slack.UnknownUserLogin(user)
 			os.Exit(22)
 		}
 
