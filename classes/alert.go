@@ -18,9 +18,13 @@ type SlackPayloadBasic struct {
 
 type SlackPayloadPetty struct {
 	Text string `json:"text"`
-	Username string `json:"username"`
-	Mrkdwn bool `json:"mrkdwn"`
+	Attachments []SlackAttachments `json:"attachments"`
+}
 
+type SlackAttachments struct {
+	Color string `json:"color"`
+	Title string `json:"title"`
+	Text string `json:"text"`
 }
 
 type Hipchat struct {
